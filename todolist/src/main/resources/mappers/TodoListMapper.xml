@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="bit.zhangye.dao.TodoListMapper" >
+  <resultMap id="BaseResultMap" type="bit.zhangye.pojo.TodoList" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="list_content" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="done" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, list_content, done, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from list
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from list
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="bit.zhangye.pojo.TodoList" >
+    insert into list (id, list_content, done, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{listContent,jdbcType=VARCHAR}, #{done,jdbcType=INTEGER}, 
+      now(), now())
+  </insert>
+  <insert id="insertSelective" parameterType="bit.zhangye.pojo.TodoList" >
+    insert into list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="listContent != null" >
+        list_content,
+      </if>
+      <if test="done != null" >
+        done,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="listContent != null" >
+        #{listContent,jdbcType=VARCHAR},
+      </if>
+      <if test="done != null" >
+        #{done,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="bit.zhangye.pojo.TodoList" >
+    update list
+    <set >
+      <if test="listContent != null" >
+        list_content = #{listContent,jdbcType=VARCHAR},
+      </if>
+      <if test="done != null" >
+        done = #{done,jdbcType=INTEGER},
+      </if>
+      update_time = now()
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="bit.zhangye.pojo.TodoList" >
+    update list
+    set list_content = #{listContent,jdbcType=VARCHAR},
+      done = #{done,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="selectAllItems" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from list
+    </select>
+
+  <delete id="deleteAllDone" >
+    delete from list
+    where done = 1
+  </delete>
+</mapper>

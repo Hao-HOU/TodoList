@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Todolist</title>
+    <link href="./css/reset.css" rel="stylesheet"/>
+    <link href="./css/style.css" rel="stylesheet"/>
+</head>
+<body>
+    <h1 class="title">todos</h1>
+    <section class="tasks-box" id="tasksbox">
+        <div class="taskList">
+            <input type="text" id="taskContent"  class="taskContent" placeholder="What needs to be done?" autofocus maxlength="100"/>
+        </div>
+        <div id="list"></div>
+        <footer class="footer">
+            <ul class="filters">
+                <li class="counter"><span id="counter">0</span> items left</li>
+                <li id="all-btn" class="active">All</li>
+                <li id="active-btn">Active</li>
+                <li id="completed-btn">Completed</li>
+                <li id="clear-btn">Clear completed</li>
+            </ul>
+        </footer>
+    </section>
+    <footer class="info">
+        <p>Double-click to edit a todo</p>
+        <p>Written by rihwa in 2018</p>
+    </footer>
+    <script src="http://nej.netease.com/nej2/src/define.js"></script>
+    <script src="./js/pro/todolist.js"></script>
+</body>
+</html>
